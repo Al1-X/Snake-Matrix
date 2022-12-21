@@ -220,10 +220,16 @@ void loop() {
       }
       break;      
     case 4:     // HOW TO PLAY
-      scrollText(howToPlay, howToPlayLenght);
+      if (millis() - wheelJoyLastMove > wheelDebounceDuration) {
+        wheelJoyLastMove = millis();    
+        scrollText(howToPlay, howToPlayLenght);
+      }
       break;
     case 5:     // ABOUT
-      scrollText(about, aboutLenght);
+      if (millis() - wheelJoyLastMove > wheelDebounceDuration) {
+        wheelJoyLastMove = millis();
+        scrollText(about, aboutLenght);
+      }
       break;
     case 6:     // MODIFY NAME
       player -> enterName();
