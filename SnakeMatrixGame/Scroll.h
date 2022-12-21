@@ -47,6 +47,10 @@ void scrollWheel(const char* tabArray[], const unsigned int arrayLenght) {
   if (joyMoved == false && joyY > joyMaxThreshold && tabIndex < arrayLenght - 1) {
     joyMoved = true;
 
+    if (soundOn == true) {
+      tone(buzzerPin, 1000, 200);
+    }    
+
     lineIndex = !lineIndex;
     tabIndex++;
 
@@ -75,6 +79,10 @@ void scrollWheel(const char* tabArray[], const unsigned int arrayLenght) {
 
   if (joyMoved == false && joyY < joyMinThreshold && tabIndex > 1) {
     joyMoved = true;
+
+    if (soundOn == true) {
+      tone(buzzerPin, 1000, 200);
+    }    
 
     lineIndex= !lineIndex;
     tabIndex--;
@@ -135,6 +143,10 @@ void scrollText(const char* text[], unsigned int lineNumber) {
 
     joyMoved = true;
 
+    if (soundOn == true) {
+      tone(buzzerPin, 1000, 200);
+    }    
+
     firstLineIndex += 2;
     pageIndex++;
 
@@ -157,6 +169,10 @@ void scrollText(const char* text[], unsigned int lineNumber) {
     lcd.clear();
 
     joyMoved = true;
+
+    if (soundOn == true) {
+      tone(buzzerPin, 1000, 200);
+    }    
 
     firstLineIndex -= 2;
     pageIndex--;
