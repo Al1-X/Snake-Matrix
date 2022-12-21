@@ -14,7 +14,7 @@ After entering the main menu, select 'Start game!' and press to start playing. U
 <p> You can find the demo <a href="">here</a>.
 
 ## Source code
-<p> You can also find the source code <a href="">here</a>.
+<p> You can also find the source code <a href="https://github.com/AlinaGeo/Snake-Matrix/tree/main/SnakeMatrixGame">here</a>.
 
 <details>
   <summary > <h2>Task requirements</h2> </summary>
