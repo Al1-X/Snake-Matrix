@@ -84,7 +84,7 @@ const unsigned int howToPlayLenght = 10;
 const char* howToPlay[howToPlayLenght + 1] = {"Use the joystick", "to move.", "Press the button", "to end game!", "Collect food", "for extra points.", "Avoid eatting", "your tail!", "   Good luck,   ", "    player !    "};
 
 const unsigned int aboutLenght = 11;
-const char* about[aboutLenght + 1] = {"Designed by", "Alina Georgescu.", "This game was", "created for the", "Introduction to", "Robotics course", "from 2022-2023", "taken at FMI.", "Find me @AliGeo", "on github", "Thx 4 playing <3"};
+const char* about[aboutLenght + 1] = {"Designed by", "Alina Georgescu.", "This game was", "created for the", "Introduction to", "Robotics course", "from 2022-2023", "taken at FMI.", "Find me @AlinaGeo", "on github", "Thx 4 playing <3"};
 
 const unsigned int settingsLenght = 7;
 const char* settings[settingsLenght + 1] = {"  Settings  ", "Modify name", "Difficulty", "LCD brightness", "Mtrx brightness", "Sounds", "Back to Menu"};
