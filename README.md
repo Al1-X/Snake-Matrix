@@ -11,10 +11,11 @@ This games simulates an old arcade snake game. Using the joystick in order to mo
 After entering the main menu, select 'Start game!' and press to start playing. Use the joystick to change direction. Press the joystick again to end the game early.
 
 ## Functionality demo
-<p> You can find the demo <a href="">here</a>.
+<p> You can find the demo <a href="https://youtu.be/3pDQYGp9Tm0">here</a>.
 
 ## Source code
 <p> You can also find the source code <a href="https://github.com/AlinaGeo/Snake-Matrix/tree/main/SnakeMatrixGame">here</a>.
+
 
 <details>
   <summary > <h2>Task requirements</h2> </summary>
@@ -43,14 +44,15 @@ After entering the main menu, select 'Start game!' and press to start playing. U
   <li>Ceramic condensor</li>
   <li>Buzzer</li>
   <li>MAX7219 Driver</li>
-  <li>Resistor</li>
   <li>Wires</li>
 </ul>
 </details>
 
-<details>
-  <summary > <h2>Setup Images</h2> </summary>
-  Coming soon
-</details>
+## Setup Images
+-Top View-
+![alt-image](./SetupImages/TopView.jpeg)
 
-Thanks for reading!
+-Side View-
+![alt-image](./SetupImages/SideView.jpeg)
+    
+<3 Thanks for reading! <3
