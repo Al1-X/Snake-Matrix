@@ -3,7 +3,6 @@
 
 #include "LedControl.h"
 #include "Variables.h"
-#include "MatrixMiniGame.h"
 #include <Arduino.h>
 
 const int buzzerPin = 9;
@@ -31,8 +30,6 @@ bool soundOn = true;
 
 unsigned int score = 0;
 
-LedControl ledControl = LedControl(dinPin, clockPin, loadPin, 1);
-
 struct Point {
   int row = 0, col = 0;
 
@@ -55,7 +52,6 @@ bool foodActive = false;
 bool win = false;
 bool gameOver = false;
 
-// adjustable variables
 int initialSnakeLength = 3;
 int snakeLength = initialSnakeLength;
 float speedFactor = 10.0;
@@ -68,6 +64,19 @@ Point food;
 
 unsigned long lastMove =0;
 int moveDuration = 300;
+
+int gameState = 1;
+
+unsigned long lastJoyMove = 0;
+unsigned long joyDebounce = 10;
+byte lastSnakeDirection = snakeDirection;
+
+unsigned long lastSpeedChange = 0;
+int speedChangeDuration = 3000;
+
+float maxSpeed = 200.0;
+
+LedControl ledControl = LedControl(dinPin, clockPin, loadPin, 1);
 
 void blink() {
   if (millis() - lastBlinkTime > blinkDuration) {
@@ -89,14 +98,6 @@ void generateFood() {
     foodActive = true;
   }
 
-unsigned long lastJoyMove = 0;
-unsigned long joyDebounce = 10;
-byte lastSnakeDirection = snakeDirection;
-
-unsigned long lastSpeedChange = 0;
-int speedChangeDuration = 3000;
-
-float maxSpeed = 200.0;
 
 void changeSpeed() {
   if (millis() - lastSpeedChange > speedChangeDuration) {
@@ -175,7 +176,6 @@ void renderSnake() {
   lastSnakeDirection = snakeDirection;
 
   if (matrix[snakeHead.row][snakeHead.col] > 1) {
-    Serial.println("bro---------");
     gameOver = true;
 
     return;
@@ -246,8 +246,6 @@ void killSnake() {
 	}
 
 }
-
-int gameState = 1;
 
 void endGame() {
 

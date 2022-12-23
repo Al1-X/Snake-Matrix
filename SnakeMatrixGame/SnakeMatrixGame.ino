@@ -1,10 +1,3 @@
-/*
-ATmega16:
-16kb flash
-1kb ram
-512 kb eeprom
-*/
-
 #include "LedControl.h"
 #include <EEPROM.h>
 #include "LCD.h"
@@ -104,6 +97,8 @@ void loop() {
 
     switch (systemState) {
       case 0:     // menu
+        ledControl.shutdown(0, true);
+        ledControl.clearDisplay(0);
         setupSnake();
         menuOption();
         lcd.clear();
@@ -117,11 +112,11 @@ void loop() {
         delay(1000);
 
         placedInLeaderboard = placeInLeaderboard(player);
-        for (int i = 0; i < topPlayerNumber; i++) {
-          Serial.print(leaderboard[i].getName());
-          Serial.print(" ");
-          Serial.println(leaderboard[i].getScore());
-        }
+        // for (int i = 0; i < topPlayerNumber; i++) {
+        //   Serial.print(leaderboard[i].getName());
+        //   Serial.print(" ");
+        //   Serial.println(leaderboard[i].getScore());
+        // }
         lcd.clear();
         systemState = 200;
         break;
@@ -131,6 +126,8 @@ void loop() {
         systemState = 0;
         break;
       case 2:     // Settings
+        ledControl.shutdown(0, true);
+        ledControl.clearDisplay(0);
         settingsMenu();
         lcd.clear();
         break;
@@ -179,22 +176,27 @@ void loop() {
 
   // systeam state actions
   switch (systemState) {
-    case 0:     // MENU
+    case 0:       // MENU
       if (millis() - wheelJoyLastMove > wheelDebounceDuration) {
         wheelJoyLastMove = millis();
         scrollWheel(menuTabs, menuLenght);
       }
-      break;    // GAMEPLAY
-    case 100:
+
+      showOnMatrix(menuSymbol);
+
+      break;    
+    case 100:    // GAMEPLAY
       playSnake(); 
       if (gameState == 0) {
-      Serial.println("game ended");
         systemState = 200;
       }
-      lcd.setCursor(0, 0);
-      lcd.print("Score:");
+      printText(0, 0, "Score:");
       lcd.setCursor(7, 0);
       lcd.print(score);
+
+      printText(0, 1, "Snake speed:");
+      lcd.setCursor(14, 1);
+      lcd.print(snakeSpeed);
       delay(150);
       break;
     case 200:   // END SCREEN
@@ -212,7 +214,11 @@ void loop() {
       if (millis() - wheelJoyLastMove > wheelDebounceDuration) {
         wheelJoyLastMove = millis();
         scrollWheel(settings, settingsLenght);
-      }  
+      }
+      
+      showOnMatrix(settingsCog);
+
+      break;        
     case 3:     // LEADERBOARD
       if (millis() - wheelJoyLastMove > wheelDebounceDuration) {
         wheelJoyLastMove = millis();
@@ -234,7 +240,7 @@ void loop() {
     case 6:     // MODIFY NAME
       player -> enterName();
       break;
-    case 7:     // DIFICULTY
+    case 7:     // DIFFICULTY
       printText(3, 0, "Difficulty");
       changeDifficulty();
       break;
@@ -253,6 +259,14 @@ void loop() {
   }
 
   lastButtonState = buttonState;
+}
+
+void showOnMatrix(byte symbol[matrixSize]) {
+  ledControl.shutdown(0, false);
+
+  for (int i = 0; i < matrixSize; i++) {
+    ledControl.setRow(0, i, symbol[i]);
+  }  
 }
 
 void changeSound() {
@@ -330,7 +344,7 @@ void changeMatrixBrightness() {
 
   ledControl.setIntensity(0, matrixBrightness);
 
-  Serial.println(matrixBrightness);
+  // Serial.println(matrixBrightness);
 }
 
 void changeLcdBrightness() {
@@ -381,7 +395,7 @@ void changeLcdBrightness() {
   lcdBrightness = brightness * 50;
   analogWrite(blackLightPin, lcdBrightness);
 
-  Serial.println(lcdBrightness);
+  // Serial.println(lcdBrightness);
 }
 
 void changeDifficulty() {
@@ -465,16 +479,16 @@ void menuOption() {
       systemState = 2;
       break;
     case 3:               // Leaderboard
-      for (int i = 0; i < topPlayerNumber; i++) {
-        Serial.print(leaderboard[i].getName());
-        Serial.print(" ");
-        Serial.println(leaderboard[i].getScore());
-      }
+      // for (int i = 0; i < topPlayerNumber; i++) {
+      //   Serial.print(leaderboard[i].getName());
+      //   Serial.print(" ");
+      //   Serial.println(leaderboard[i].getScore());
+      // }
 
-      for (int i = 1; i <= topPlayerNumber; i++) {
-        leaderboardString[i] = "";
-        toString(leaderboardString[i], &leaderboard[i - 1], String(i));
-      }
+      // for (int i = 1; i <= topPlayerNumber; i++) {
+      //   leaderboardString[i] = "";
+      //   toString(leaderboardString[i], &leaderboard[i - 1], String(i));
+      // }
       systemState = 3;
       break;
     case 4:               // How to play
@@ -489,7 +503,7 @@ void menuOption() {
 void writePlayerToEeprom(int address, Player player)
 {
   char* playerName = player.getName();
-    Serial.println(playerName);
+    // Serial.println(playerName);
 
   for (int i = 0; i < 3; i++) {
     EEPROM.update(address + i, playerName[i]);

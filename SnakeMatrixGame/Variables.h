@@ -58,6 +58,28 @@ byte snakeTail[] = {
   B00000
 };
 
+const byte settingsCog[matrixSize] = {
+  B01011010,
+  B11111111,
+  B01100110,
+  B11000011,
+  B11000011,
+  B01100110,
+  B11111111,
+  B01011010
+};
+
+const byte menuSymbol[matrixSize] = {
+  B11000011,
+  B11100111,
+  B11100111,
+  B11111111,
+  B11011011,
+  B11000011,
+  B11000011,
+  B11000011
+};
+
 bool actionStarted = false;
 unsigned long elapsedTime = 0;
 byte buttonState;
